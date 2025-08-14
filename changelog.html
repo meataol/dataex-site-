@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DATAEX Changelog</title>
+  <meta name="description" content="Release notes for DATAEX." />
+  <link rel="icon" href="assets/LOGO.png" />
+  <link rel="canonical" href="https://www.dataexapp.com/changelog.html" />
+  <meta property="og:title" content="DATAEX Changelog" />
+  <meta property="og:description" content="What’s new and fixed in DATAEX." />
+  <meta property="og:url" content="https://www.dataexapp.com/changelog.html" />
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
+  </style>
+</head>
+<body class="text-slate-100 antialiased">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
+      <a href="./" class="font-semibold tracking-wide hover:underline">DATAEX</a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 py-8">
+    <h1 class="text-3xl font-extrabold mb-4">Changelog</h1>
+
+    <article class="mb-6">
+      <h2 class="text-xl font-bold">v1.0.0 — Initial release</h2>
+      <p class="text-slate-300 text-sm mb-2">2025-08-14</p>
+      <ul class="list-disc pl-6 text-slate-300">
+        <li>Rule-based extraction (cells, ranges, row filters).</li>
+        <li>Folder + subfolder scanning to one Excel report.</li>
+        <li>Folder audit text report and file converter (.xls/.csv → .xlsx).</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 py-10 text-xs text-slate-400">
+    <div class="border-t border-slate-800 pt-6 flex items-center justify-between">
+      <p>© <span id="y"></span> DATAEX. All rights reserved.</p>
+      <a class="hover:text-white" href="./">Home</a>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
