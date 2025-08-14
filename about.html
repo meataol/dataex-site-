@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About DATAEX</title>
+  <meta name="description" content="About DATAEX — Excel data extraction for Windows." />
+  <link rel="icon" href="assets/LOGO.png" />
+  <link rel="canonical" href="https://www.dataexapp.com/about.html" />
+  <meta property="og:title" content="About DATAEX" />
+  <meta property="og:description" content="DATAEX helps Excel users extract data across many files and consolidate results quickly." />
+  <meta property="og:url" content="https://www.dataexapp.com/about.html" />
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
+  </style>
+</head>
+<body class="text-slate-100 antialiased">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
+      <a href="./" class="font-semibold tracking-wide hover:underline">DATAEX</a>
+    </div>
+    <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
+      <a href="./#features" class="hover:text-white">Features</a>
+      <a href="./faq" class="hover:text-white" onclick="document.location='/'">FAQ</a>
+      <a href="./eula.html" class="hover:text-white">EULA</a>
+      <a href="./privacy.html" class="hover:text-white">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 py-8">
+    <h1 class="text-3xl font-extrabold mb-4">About DATAEX</h1>
+    <p class="text-slate-300 mb-4">
+      DATAEX is a Windows tool for Excel users who need to extract and consolidate data from many files quickly and reliably—
+      without writing scripts. Define rules (fixed cells, ranges, filters), scan entire folders including subfolders, and export a clean Excel report.
+    </p>
+    <p class="text-slate-300 mb-4">
+      The application runs locally on your PC; your files remain on your machine. Checkout and taxes are handled by FastSpring (Merchant of Record).
+    </p>
+    <h2 class="text-xl font-bold mt-6 mb-2">Support</h2>
+    <p class="text-slate-300">
+      Email: <a href="mailto:dataexnow@gmail.com" class="text-slate-200 underline">dataexnow@gmail.com</a>
+    </p>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 py-10 text-xs text-slate-400">
+    <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <p>© <span id="y"></span> DATAEX. All rights reserved.</p>
+      <nav class="flex items-center gap-4">
+        <a class="hover:text-white" href="./eula.html">EULA</a>
+        <a class="hover:text-white" href="./privacy.html">Privacy</a>
+        <a class="hover:text-white" href="./">Home</a>
+      </nav>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
