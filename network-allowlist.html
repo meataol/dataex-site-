@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Network Allowlist – DATAEX</title>
+  <meta name="description" content="Hostnames and steps IT teams can allowlist to enable access to DATAEX (software site and downloads)." />
+  <link rel="icon" href="assets/LOGO.png" />
+  <link rel="canonical" href="https://www.dataexapp.com/network-allowlist.html" />
+  <meta property="og:title" content="Network Allowlist – DATAEX" />
+  <meta property="og:description" content="Hostnames and steps IT teams can allowlist to enable access to DATAEX (software site and downloads)." />
+  <meta property="og:url" content="https://www.dataexapp.com/network-allowlist.html" />
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
+    code { background: rgba(148,163,184,.15); padding: .15rem .35rem; border-radius: .25rem; }
+    pre { background: rgba(148,163,184,.12); border: 1px solid rgba(148,163,184,.2); border-radius: .5rem; padding: 1rem; overflow: auto; }
+    a { text-decoration: underline; }
+  </style>
+</head>
+<body class="text-slate-100 antialiased">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
+      <a href="./" class="font-semibold tracking-wide hover:underline">DATAEX</a>
+    </div>
+    <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
+      <a href="./eula.html" class="hover:text-white">EULA</a>
+      <a href="./privacy.html" class="hover:text-white">Privacy</a>
+      <a href="./" class="hover:text-white">Home</a>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 pb-16">
+    <h1 class="text-3xl font-extrabold mb-2">Network Allowlist</h1>
+    <p class="text-slate-300 mb-6">If your organization uses secure web gateways (e.g., Cloudflare Zero Trust/Gateway) or content filters that block newly registered domains, please allow the hostnames below. DATAEX is a static vendor site (GitHub Pages over HTTPS) with no tracking and no user uploads.</p>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Hostnames to Allow (by hostname, not IP)</h2>
+      <ul class="list-disc pl-6 space-y-1 text-slate-200">
+        <li><code>www.dataexapp.com</code> — canonical website (served by GitHub Pages via Fastly)</li>
+        <li><code>dataexapp.com</code> — redirects (HTTP 301) to <code>https://www.dataexapp.com/</code></li>
+        <li class="mt-3"><span class="text-slate-400 text-sm">Optional, if your policy blocks third-party CDNs or GitHub Releases:</span></li>
+        <li><code>cdn.tailwindcss.com</code> — CSS framework loaded on the site</li>
+        <li><code>github.com</code> — release landing pages</li>
+        <li><code>objects.githubusercontent.com</code> — actual file host for GitHub Releases downloads</li>
+      </ul>
+      <p class="text-slate-400 text-sm mt-3">IP allowlisting is not recommended for GitHub Pages or Releases (anycast IPs change). Use hostnames.</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-2">What this site does</h2>
+      <ul class="list-disc pl-6 text-slate-200">
+        <li>Static product pages (EULA, Privacy, About, Changelog)</li>
+        <li>Enforced HTTPS on <code>www.dataexapp.com</code></li>
+        <li>Download link points to a signed Windows trial ZIP on GitHub Releases</li>
+        <li>No tracking pixels; no forms; no user data collection</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Quick verification (IT can run)</h2>
+      <p class="text-slate-300">Confirm DNS, HTTPS, and redirect behavior from any terminal:</p>
+      <pre><code># DNS: www CNAME points to GitHub Pages
+nslookup -type=cname www.dataexapp.com 1.1.1.1
+nslookup -type=cname www.dataexapp.com 8.8.8.8
+
+# HTTPS on canonical host
+curl -I https://www.dataexapp.com/
+
+# Apex redirects to canonical
+curl -I https://dataexapp.com/
+curl -I http://dataexapp.com/</code></pre>
+      <p class="text-slate-400 text-sm">Expected: <code>www.dataexapp.com</code> → CNAME <code>meataol.github.io</code>; <code>https://www.dataexapp.com/</code> returns 200; apex returns 301 to the canonical URL.</p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-bold mb-2">Cloudflare Zero Trust / Gateway (example policy)</h2>
+      <p class="text-slate-300">If your organization uses Cloudflare Gateway, create an allow list and two simple policies:</p>
+      <ol class="list-decimal pl-6 space-y-2 text-slate-200">
+        <li><strong>List</strong>: Hostname list <code>allow-dataexapp</code> containing
+          <code>dataexapp.com</code> and <code>www.dataexapp.com</code>.</li>
+        <li><strong>DNS policy</strong>: <em>If Domain in</em> <code>allow-dataexapp</code> → <strong>Allow</strong> (place above “Newly Registered/Seen Domains” blocks).</li>
+        <li><strong>HTTP policy</strong> (if HTTP filtering is enabled): <em>If Hostname in</em> <code>allow-dataexapp</code> → <strong>Allow</strong>.</li>
+      </ol>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Contact</h2>
+      <p class="text-slate-300">For questions, IT can reach us at <a href="mailto:dataexnow@gmail.com" class="text-slate-100">dataexnow@gmail.com</a>. Policies permitting, a temporary test without NRD filtering should load <code>https://www.dataexapp.com/</code> immediately.</p>
+    </section>
+
+    <div class="text-slate-400 text-xs">
+      <p>© <span id="y"></span> DATAEX. All rights reserved.</p>
+    </div>
+  </main>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
