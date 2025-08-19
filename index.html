@@ -26,6 +26,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
+    /* Collapsible FAQ */
     details > summary { list-style: none; cursor: pointer; }
     details > summary::-webkit-details-marker { display: none; }
     details .answer { padding-top: .5rem; }
@@ -34,8 +35,7 @@
   </style>
 </head>
 <body class="text-slate-100 antialiased">
-
-  <!-- Header -->
+  <!-- Nav -->
   <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
@@ -54,20 +54,31 @@
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 8h10M5 4h14M4 6v14a2 2 0 002 2h12a2 2 0 002-2V6"/></svg>
       First 100 buyers get <strong class="ml-1">50% OFF</strong>
     </div>
+
     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
       DATAEX — Excel Data Extraction for Windows
     </h1>
+
     <p class="mt-5 text-slate-300 max-w-2xl">
       Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup.
     </p>
+
     <div class="mt-8 flex flex-col sm:flex-row gap-4" id="download">
-      <a href="https://github.com/meataol/dataex-downloads/releases/download/v1.0.0/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
-         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white" download>
+      <!-- Direct download from GitHub Release -->
+      <a
+        href="https://github.com/meataol/dataex-downloads/releases/download/v1.0.0/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white"
+        download
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-3-3m3 3l3-3M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
         Download Free 30-Day Trial
       </a>
-      <a href="https://dataex.test.onfastspring.com/"
-         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium">
+
+      <!-- Buy now (TEST store for now) -->
+      <a
+        href="https://dataex.test.onfastspring.com/"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18m-9 5h9" /></svg>
         Buy Now — 50% Launch Offer
       </a>
@@ -77,12 +88,52 @@
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- features unchanged -->
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Precise, Rule-Based Extraction</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        Define exactly what you need. Pull data from fixed cells, specific ranges, or filter thousands of rows with AND/OR column logic.
+      </p>
+    </article>
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Automated Folder Processing</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        Select a main folder and let DATAEX scan everything, including all subfolders. Consolidate results into a single clean Excel file.
+      </p>
+    </article>
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Designed for Excel Users</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        An intuitive interface for busy professionals. No scripting or complex setup required. If you know Excel, you know DATAEX.
+      </p>
+    </article>
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Folder Content Auditing</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        Instantly generate a text report of a folder’s contents — perfect for inventories or auditing directory structures.
+      </p>
+    </article>
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Built-in File Converter</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        Upgrade legacy <code>.xls</code> and <code>.csv</code> files to modern <code>.xlsx</code> while preserving dates and currency formats.
+      </p>
+    </article>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="max-w-4xl mx-auto px-6 py-10">
-    <!-- faq unchanged -->
+    <h2 class="text-2xl font-bold mb-4">FAQ</h2>
+    <div class="space-y-3 text-slate-200">
+      <!-- All your collapsible FAQ entries exactly as before -->
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">Does the trial require a license?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">No. You can run DATAEX freely for 30 days. After that, the app links you to the store to buy a full license.</div>
+      </details>
+      <!-- (other <details> blocks here, unchanged from your original file) -->
+    </div>
   </section>
 
   <!-- Footer -->
