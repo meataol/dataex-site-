@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://www.dataexapp.com/" />
   <meta name="theme-color" content="#0f172a" />
 
-  <!-- Hidden compliance metadata (only crawlers see this) -->
+  <!-- Hidden compliance metadata -->
   <meta name="keywords" content="DATAEX, Excel Data Extraction, Windows software, licensed business software, FastSpring">
   <meta name="author" content="DATAEX">
   <meta name="business:name" content="DATAEX">
@@ -26,7 +26,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
-    /* Collapsible FAQ */
     details > summary { list-style: none; cursor: pointer; }
     details > summary::-webkit-details-marker { display: none; }
     details .answer { padding-top: .5rem; }
@@ -35,7 +34,8 @@
   </style>
 </head>
 <body class="text-slate-100 antialiased">
-  <!-- Nav -->
+
+  <!-- Header -->
   <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
@@ -49,10 +49,41 @@
   </header>
 
   <!-- Hero -->
-  <!-- (unchanged content here) -->
+  <section class="max-w-6xl mx-auto px-6 pt-6 pb-12">
+    <div class="inline-flex items-center gap-2 text-emerald-300 text-sm border border-emerald-700/40 rounded-full px-3 py-1 mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 8h10M5 4h14M4 6v14a2 2 0 002 2h12a2 2 0 002-2V6"/></svg>
+      First 100 buyers get <strong class="ml-1">50% OFF</strong>
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+      DATAEX — Excel Data Extraction for Windows
+    </h1>
+    <p class="mt-5 text-slate-300 max-w-2xl">
+      Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-4" id="download">
+      <a href="https://github.com/meataol/dataex-downloads/releases/download/v1.0.0/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
+         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white" download>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-3-3m3 3l3-3M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Download Free 30-Day Trial
+      </a>
+      <a href="https://dataex.test.onfastspring.com/"
+         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18m-9 5h9" /></svg>
+        Buy Now — 50% Launch Offer
+      </a>
+    </div>
+    <p class="mt-2 text-xs text-slate-400">Offer valid for first 100 purchases only. Discount auto-applied at checkout.</p>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- features unchanged -->
+  </section>
 
   <!-- FAQ -->
-  <!-- (unchanged content here) -->
+  <section id="faq" class="max-w-4xl mx-auto px-6 py-10">
+    <!-- faq unchanged -->
+  </section>
 
   <!-- Footer -->
   <footer class="max-w-6xl mx-auto px-6 py-10 text-xs text-slate-400">
@@ -63,6 +94,8 @@
         <nav class="flex items-center gap-4">
           <a class="hover:text-white" href="./eula.html">EULA</a>
           <a class="hover:text-white" href="./privacy.html">Privacy</a>
+          <a class="hover:text-white" href="./refund.html">Refund</a>
+          <a class="hover:text-white" href="./pricing.html">Pricing</a>
         </nav>
       </div>
     </div>
