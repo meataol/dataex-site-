@@ -3,25 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DATAEX — Excel Data Extraction for Windows</title>
+  <title>DATAEX – Excel Data Extraction</title>
   <meta name="description" content="Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup." />
-  <link rel="icon" href="assets/LOGO.png" />
-
-  <!-- Canonical + Social -->
-  <link rel="canonical" href="https://www.dataexapp.com/" />
-  <meta property="og:title" content="DATAEX — Excel Data Extraction for Windows" />
-  <meta property="og:description" content="Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup." />
-  <meta property="og:url" content="https://www.dataexapp.com/" />
-  <meta name="theme-color" content="#0f172a" />
-
-  <!-- Hidden compliance metadata -->
-  <meta name="keywords" content="DATAEX, Excel Data Extraction, Windows software, licensed business software, FastSpring">
-  <meta name="author" content="DATAEX">
-  <meta name="business:name" content="DATAEX">
-  <meta name="business:location" content="New York, NY, USA">
-  <meta name="business:contact" content="support@dataexapp.com">
-  <meta name="business:legal" content="Registered U.S. business, EIN on file">
-
+  <link rel="icon" href="assets/LOGO.png">
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -38,12 +22,15 @@
   <!-- Nav -->
   <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
+      <!-- FIXED: use the correct case for the filename -->
       <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
       <span class="font-semibold tracking-wide">DATAEX</span>
     </div>
     <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
       <a href="#features" class="hover:text-white">Features</a>
       <a href="#faq" class="hover:text-white">FAQ</a>
+      <a href="./pricing.html" class="hover:text-white">Pricing</a>
+      <a href="./refund.html" class="hover:text-white">Refund</a>
       <a href="#download" class="px-3 py-1.5 rounded-md bg-cyan-600 hover:bg-cyan-500 text-white">Download</a>
     </nav>
   </header>
@@ -55,10 +42,9 @@
       First 100 buyers get <strong class="ml-1">50% OFF</strong>
     </div>
 
-    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-      DATAEX — Excel Data Extraction for Windows
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
+      Excel Data Extraction Made<br class="hidden sm:block" /> <span class="text-white">Simple</span>
     </h1>
-
     <p class="mt-5 text-slate-300 max-w-2xl">
       Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup.
     </p>
@@ -120,11 +106,10 @@
     </article>
   </section>
 
-  <!-- FAQ -->
+  <!-- FAQ (collapsible) -->
   <section id="faq" class="max-w-4xl mx-auto px-6 py-10">
     <h2 class="text-2xl font-bold mb-4">FAQ</h2>
     <div class="space-y-3 text-slate-200">
-      <!-- All your collapsible FAQ entries exactly as before -->
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">Does the trial require a license?</span>
@@ -132,7 +117,62 @@
         </summary>
         <div class="answer text-sm text-slate-300">No. You can run DATAEX freely for 30 days. After that, the app links you to the store to buy a full license.</div>
       </details>
-      <!-- (other <details> blocks here, unchanged from your original file) -->
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">What does the app export?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">DATAEX produces a ready-to-use Excel report based on your rules and the folder scan.</div>
+      </details>
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">Is this Windows-only?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">Yes. DATAEX requires Windows 10 or newer.</div>
+      </details>
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">How is licensing handled? Can I move it between computers?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">
+          Each license is for one person. You can transfer the active installation by Deactivate on the old computer and Activate on the new one with your key.
+        </div>
+      </details>
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">How do I purchase and what about taxes?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">
+          Checkout runs through FastSpring (Merchant of Record). They calculate, collect, and remit applicable sales/VAT/GST taxes.
+        </div>
+      </details>
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">Does DATAEX upload my files?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">
+          No. Processing happens locally on your Windows PC; your files stay on your machine.
+        </div>
+      </details>
+
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">Can I use DATAEX at work?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">
+          Yes—your license is for one person. For teams, purchase the number of seats equal to the number of users.
+        </div>
+      </details>
     </div>
   </section>
 
@@ -143,24 +183,14 @@
       <div class="flex items-center gap-6">
         <p>Support: <a class="text-slate-300 hover:text-white" href="mailto:dataexnow@gmail.com">dataexnow@gmail.com</a></p>
         <nav class="flex items-center gap-4">
+          <a class="hover:text-white" href="./pricing.html">Pricing</a>
+          <a class="hover:text-white" href="./refund.html">Refund</a>
           <a class="hover:text-white" href="./eula.html">EULA</a>
           <a class="hover:text-white" href="./privacy.html">Privacy</a>
-          <a class="hover:text-white" href="./refund.html">Refund</a>
-          <a class="hover:text-white" href="./pricing.html">Pricing</a>
         </nav>
       </div>
     </div>
   </footer>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
-  <!-- Hidden crawler-only links -->
-  <div style="display:none;">
-    <a href="/privacy.html">Privacy Policy</a>
-    <a href="/refund.html">Refund Policy</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/eula.html">EULA</a>
-    <p>DATAEX – Excel Data Extraction | New York, NY, USA | support@dataexapp.com</p>
-    <p>Registered U.S. business, EIN on file</p>
-  </div>
 </body>
 </html>
