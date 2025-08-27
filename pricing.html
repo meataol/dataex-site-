@@ -46,9 +46,9 @@
             <li>• One year of updates included</li>
           </ul>
           <div class="mt-6 flex gap-3">
-            <!-- Keep TEST link until store is live; replace with LIVE link after activation -->
-            <a href="https://dataex.test.onfastspring.com/"
-               class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white">
+            <!-- LIVE Buy Now with coupon -->
+            <a id="buy-live" href="https://dataex.onfastspring.com/"
+               class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white" rel="noopener">
               Buy Now
             </a>
             <a href="/#download"
@@ -74,6 +74,19 @@
       </nav>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <!-- LIVE store + coupon attach -->
+  <script>
+    (function () {
+      var el = document.getElementById('buy-live');
+      if (!el) return;
+      try {
+        var u = new URL(el.href);
+        u.searchParams.set('coupon', 'DATAEX50'); // change here if your live coupon code differs
+        el.href = u.toString();
+      } catch (e) {}
+    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
