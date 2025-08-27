@@ -59,17 +59,24 @@
         Download Free 30-Day Trial
       </a>
 
-      <!-- LIVE Buy Now with coupon on product path -->
+      <!-- LIVE Buy Now with coupon on product path (opens new tab) -->
       <a
         href="https://dataex.onfastspring.com/dataex-excel-data-extraction?coupon=LAUNCH50"
+        target="_blank" rel="noopener"
         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium"
-        rel="noopener"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18m-9 5h9" /></svg>
         Buy Now — 50% Launch Offer
       </a>
+
+      <!-- Coupon pill (click to copy) -->
+      <button id="copy-coupon"
+        class="rounded-xl border border-emerald-500/60 px-3 py-2 text-sm text-emerald-300 hover:bg-emerald-500/10"
+        data-code="LAUNCH50" type="button" title="Click to copy">
+        Coupon: <strong>LAUNCH50</strong>
+      </button>
     </div>
-    <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout).</p>
+    <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
   </section>
 
   <!-- Features -->
@@ -171,6 +178,22 @@
       </div>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <script>
+    // Copy coupon helper (fallback for users who need to paste in checkout)
+    (function(){
+      var btn = document.getElementById('copy-coupon');
+      if(!btn) return;
+      btn.addEventListener('click', function(){
+        var code = btn.getAttribute('data-code');
+        navigator.clipboard?.writeText(code).then(function(){
+          var old = btn.innerHTML;
+          btn.innerHTML = 'Copied: <strong>' + code + '</strong>';
+          setTimeout(function(){ btn.innerHTML = 'Coupon: <strong>' + code + '</strong>'; }, 1500);
+        });
+      });
+    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
