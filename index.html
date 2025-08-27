@@ -6,11 +6,9 @@
   <title>DATAEX – Excel Data Extraction</title>
   <meta name="description" content="Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup." />
   <link rel="icon" href="assets/LOGO.png">
-  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: radial-gradient(1000px 500px at 10% 0%, #0f172a 0%, #020617 40%, #020617 100%); }
-    /* Collapsible FAQ */
     details > summary { list-style: none; cursor: pointer; }
     details > summary::-webkit-details-marker { display: none; }
     details .answer { padding-top: .5rem; }
@@ -22,7 +20,6 @@
   <!-- Nav -->
   <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <!-- FIXED: use the correct case for the filename -->
       <img src="assets/LOGO.png" alt="DATAEX logo" class="h-8 w-8 rounded-md shadow" />
       <span class="font-semibold tracking-wide">DATAEX</span>
     </div>
@@ -31,6 +28,8 @@
       <a href="#faq" class="hover:text-white">FAQ</a>
       <a href="./pricing.html" class="hover:text-white">Pricing</a>
       <a href="./refund.html" class="hover:text-white">Refund</a>
+      <a href="./eula.html" class="hover:text-white">EULA</a>
+      <a href="./privacy.html" class="hover:text-white">Privacy</a>
       <a href="#download" class="px-3 py-1.5 rounded-md bg-cyan-600 hover:bg-cyan-500 text-white">Download</a>
     </nav>
   </header>
@@ -39,7 +38,7 @@
   <section class="max-w-6xl mx-auto px-6 pt-6 pb-12">
     <div class="inline-flex items-center gap-2 text-emerald-300 text-sm border border-emerald-700/40 rounded-full px-3 py-1 mb-6">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 8h10M5 4h14M4 6v14a2 2 0 002 2h12a2 2 0 002-2V6"/></svg>
-      First 100 buyers get <strong class="ml-1">50% OFF</strong>
+      First 100 buyers get <strong class="ml-1">50% OFF</strong> — Regular price US$79.99
     </div>
 
     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
@@ -50,7 +49,7 @@
     </p>
 
     <div class="mt-8 flex flex-col sm:flex-row gap-4" id="download">
-      <!-- Direct download from GitHub Release -->
+      <!-- Trial download -->
       <a
         href="https://github.com/meataol/dataex-downloads/releases/download/v1.0.0/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white"
@@ -60,16 +59,18 @@
         Download Free 30-Day Trial
       </a>
 
-      <!-- Buy now (TEST store for now) -->
+      <!-- LIVE Buy Now with auto-applied coupon -->
       <a
-        href="https://dataex.test.onfastspring.com/"
+        id="buy-live"
+        href="https://dataex.onfastspring.com/"
         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium"
+        rel="noopener"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18m-9 5h9" /></svg>
         Buy Now — 50% Launch Offer
       </a>
     </div>
-    <p class="mt-2 text-xs text-slate-400">Offer valid for first 100 purchases only. Discount auto-applied at checkout.</p>
+    <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout).</p>
   </section>
 
   <!-- Features -->
@@ -153,26 +154,6 @@
           Checkout runs through FastSpring (Merchant of Record). They calculate, collect, and remit applicable sales/VAT/GST taxes.
         </div>
       </details>
-
-      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
-        <summary class="flex items-center justify-between">
-          <span class="font-semibold">Does DATAEX upload my files?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-        </summary>
-        <div class="answer text-sm text-slate-300">
-          No. Processing happens locally on your Windows PC; your files stay on your machine.
-        </div>
-      </details>
-
-      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
-        <summary class="flex items-center justify-between">
-          <span class="font-semibold">Can I use DATAEX at work?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-        </summary>
-        <div class="answer text-sm text-slate-300">
-          Yes—your license is for one person. For teams, purchase the number of seats equal to the number of users.
-        </div>
-      </details>
     </div>
   </section>
 
@@ -191,6 +172,21 @@
       </div>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <!-- LIVE store + coupon attach -->
+  <script>
+    // Attach coupon to the LIVE store link (works even if href already has query params).
+    (function () {
+      var el = document.getElementById('buy-live');
+      if (!el) return;
+      try {
+        var u = new URL(el.href);
+        // Set your actual coupon code and make sure the hostname is your LIVE store
+        u.searchParams.set('coupon', 'DATAEX50');
+        el.href = u.toString();
+      } catch (e) {}
+    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
