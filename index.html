@@ -59,10 +59,9 @@
         Download Free 30-Day Trial
       </a>
 
-      <!-- LIVE Buy Now with auto-applied coupon -->
+      <!-- LIVE Buy Now with coupon embedded -->
       <a
-        id="buy-live"
-        href="https://dataex.onfastspring.com/"
+        href="https://dataex.onfastspring.com/?coupon=LAUNCH50"
         class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium"
         rel="noopener"
       >
@@ -173,19 +172,7 @@
     </div>
   </footer>
 
-  <!-- LIVE store + coupon attach -->
   <script>
-    // Attach coupon to the LIVE store link (works even if href already has query params).
-    (function () {
-      var el = document.getElementById('buy-live');
-      if (!el) return;
-      try {
-        var u = new URL(el.href);
-        // Set your actual coupon code and make sure the hostname is your LIVE store
-        u.searchParams.set('coupon', 'DATAEX50');
-        el.href = u.toString();
-      } catch (e) {}
-    })();
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
