@@ -45,18 +45,26 @@
             <li>• Converter & audit tools</li>
             <li>• One year of updates included</li>
           </ul>
-          <div class="mt-6 flex gap-3">
-            <!-- LIVE Buy Now with coupon on product path -->
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <!-- LIVE Buy Now with coupon on product path (opens new tab) -->
             <a href="https://dataex.onfastspring.com/dataex-excel-data-extraction?coupon=LAUNCH50"
-               class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white" rel="noopener">
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white">
               Buy Now
             </a>
             <a href="/#download"
                class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium">
               Download Free Trial
             </a>
+
+            <!-- Coupon pill (click to copy) -->
+            <button id="copy-coupon"
+              class="rounded-xl border border-emerald-500/60 px-3 py-2 text-sm text-emerald-300 hover:bg-emerald-500/10"
+              data-code="LAUNCH50" type="button" title="Click to copy">
+              Coupon: <strong>LAUNCH50</strong>
+            </button>
           </div>
-          <p class="mt-3 text-xs text-slate-400">Taxes handled by FastSpring (Merchant of Record) at checkout.</p>
+          <p class="mt-3 text-xs text-slate-400">If discount isn’t visible immediately, click <em>Add</em> in checkout; if still needed, paste the copied code.</p>
         </div>
       </div>
     </section>
@@ -74,6 +82,21 @@
       </nav>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('copy-coupon');
+      if(!btn) return;
+      btn.addEventListener('click', function(){
+        var code = btn.getAttribute('data-code');
+        navigator.clipboard?.writeText(code).then(function(){
+          var old = btn.innerHTML;
+          btn.innerHTML = 'Copied: <strong>' + code + '</strong>';
+          setTimeout(function(){ btn.innerHTML = 'Coupon: <strong>' + code + '</strong>'; }, 1500);
+        });
+      });
+    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
