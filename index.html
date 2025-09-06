@@ -79,25 +79,68 @@
     <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
   </section>
 
-  <!-- Intro video (autoplay when visible) -->
-  <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
-    <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX - Excel Data Extraction</h2>
-    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow">
-      <video
-        id="dataexIntro"
-        class="w-full h-auto"
-        preload="metadata"
-        muted
-        playsinline
-        controls
-        poster="assets/LOGO.png"
-      >
-        <!-- If you renamed the file to dataex-intro.mp4, change the line below accordingly -->
-        <source src="assets/videos/DATAEX%20EXCEL%20FILES%20EXTRACTION%20INTRO.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </section>
+<!-- Intro video (autoplay when visible; smaller width) -->
+<section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
+  <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX — Excel Data Extraction</h2>
+
+  <!-- width limit + center -->
+  <div class="mx-auto max-w-3xl rounded-2xl overflow-hidden border border-slate-800 shadow">
+    <video
+      id="dataexIntro"
+      class="w-full h-auto"
+      style="aspect-ratio: 16 / 9;"            <!-- keeps a neat 16:9 box -->
+      preload="metadata"
+      muted
+      autoplay                                   <!-- allow autoplay; we'll pause when off-screen -->
+      playsinline
+      controls
+      poster="assets/LOGO.png"
+      controlslist="nodownload noplaybackrate"
+    >
+      <source src="assets/videos/dataex-intro.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<script>
+  // Autoplay only when visible; reset if it ever loads at the end
+  (function () {
+    const v = document.getElementById('dataexIntro');
+    if (!v) return;
+
+    // Respect reduced-motion users: no autoplay for them
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReduced.matches) { v.controls = true; v.autoplay = false; return; }
+
+    // Ensure first frame at start
+    v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
+
+    // If the tab becomes hidden, pause
+    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+
+    // Play/pause based on visibility (>= 50% visible plays)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+          if (v.ended || v.currentTime >= (v.duration - 0.2)) {  // reset if stuck at end
+            try { v.currentTime = 0; } catch(e){}
+          }
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: [0, 0.5, 1] });
+
+    io.observe(v);
+
+    // Fallback: first click anywhere starts it if the browser blocked autoplay
+    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); };
+    window.addEventListener('click', kick, { once: true });
+  })();
+</script>
+
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
