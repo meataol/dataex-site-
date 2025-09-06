@@ -50,12 +50,11 @@
 
     <div class="mt-8 flex flex-col sm:flex-row gap-4" id="download">
       <!-- Trial download -->
-    <a
-      href="https://github.com/meataol/dataex-downloads/releases/latest/download/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
-      class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white"
-      download
-    >
-
+      <a
+        href="https://github.com/meataol/dataex-downloads/releases/latest/download/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white"
+        download
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-3-3m3 3l3-3M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
         Download Free 30-Day Trial
       </a>
@@ -78,6 +77,26 @@
       </button>
     </div>
     <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
+  </section>
+
+  <!-- Intro video (autoplay when visible) -->
+  <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
+    <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX - Excel Data Extraction</h2>
+    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow">
+      <video
+        id="dataexIntro"
+        class="w-full h-auto"
+        preload="metadata"
+        muted
+        playsinline
+        controls
+        poster="assets/LOGO.png"
+      >
+        <!-- If you renamed the file to dataex-intro.mp4, change the line below accordingly -->
+        <source src="assets/videos/DATAEX%20EXCEL%20FILES%20EXTRACTION%20INTRO.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </section>
 
   <!-- Features -->
@@ -145,7 +164,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How is licensing handled? Can I move it between computers?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Each license is for one person. You can transfer the active installation by Deactivate on the old computer and Activate on the new one with your key.
@@ -155,7 +174,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How do I purchase and what about taxes?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Checkout runs through FastSpring (Merchant of Record). They calculate, collect, and remit applicable sales/VAT/GST taxes.
@@ -196,6 +215,36 @@
     })();
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
+
+  <script>
+    // Autoplay/pause the intro video only when visible (≥50%)
+    (function () {
+      const v = document.getElementById('dataexIntro');
+      if (!v) return;
+
+      // Respect reduced motion preference
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (prefersReduced.matches) { v.controls = true; return; }
+
+      v.muted = true; // required for mobile autoplay
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        });
+      }, { threshold: [0, 0.5, 1] });
+      io.observe(v);
+
+      // Pause when tab not visible
+      document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+
+      // Fallback: user click starts playback if blocked
+      const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); };
+      window.addEventListener('click', kick, { once: true });
+    })();
+  </script>
 </body>
 </html>
-
