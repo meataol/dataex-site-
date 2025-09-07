@@ -36,10 +36,17 @@
 
   <!-- Hero -->
   <section class="max-w-6xl mx-auto px-6 pt-6 pb-12">
-    <div class="inline-flex items-center gap-2 text-emerald-300 text-sm border border-emerald-700/40 rounded-full px-3 py-1 mb-6">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 8h10M5 4h14M4 6v14a2 2 0 002 2h12a2 2 0 002-2V6"/></svg>
-      First 100 buyers get <strong class="ml-1">50% OFF</strong> — Regular price US$79.99
-    </div>
+	<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2
+				text-emerald-300 text-xs sm:text-sm border border-emerald-700/40
+				rounded-xl px-3 py-2 mb-6 max-w-full whitespace-normal">
+	  <span class="leading-snug">
+		First 100 buyers get <span class="font-semibold text-emerald-200">50% OFF</span>
+	  </span>
+	  <span class="hidden sm:inline">—</span>
+	  <span class="leading-snug">
+		Regular price <span class="font-semibold text-emerald-200">US$79.99</span>
+	  </span>
+	</div>
 
     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
       Excel Data Extraction Made<br class="hidden sm:block" /> <span class="text-white">Simple</span>
@@ -79,20 +86,20 @@
     <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
   </section>
 
-<!-- Intro video (autoplay when visible; smaller width) -->
+<!-- Intro video (autoplay when visible; mobile-safe) -->
 <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
   <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX — Excel Data Extraction</h2>
 
-  <!-- width limit + center -->
   <div class="mx-auto max-w-3xl rounded-2xl overflow-hidden border border-slate-800 shadow">
     <video
       id="dataexIntro"
       class="w-full h-auto"
-      style="aspect-ratio: 16 / 9;"            <!-- keeps a neat 16:9 box -->
+      style="aspect-ratio:16/9"
       preload="metadata"
       muted
-      autoplay                                   <!-- allow autoplay; we'll pause when off-screen -->
+      autoplay
       playsinline
+      webkit-playsinline
       controls
       poster="assets/LOGO.png"
       controlslist="nodownload noplaybackrate"
@@ -104,43 +111,53 @@
 </section>
 
 <script>
-  // Autoplay only when visible; reset if it ever loads at the end
-  (function () {
-    const v = document.getElementById('dataexIntro');
-    if (!v) return;
+(function () {
+  const v = document.getElementById('dataexIntro');
+  if (!v) return;
 
-    // Respect reduced-motion users: no autoplay for them
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReduced.matches) { v.controls = true; v.autoplay = false; return; }
+  // Respect reduced motion users
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReduced.matches) { v.autoplay = false; v.controls = true; return; }
 
-    // Ensure first frame at start
-    v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
+  // Ensure flags for iOS
+  v.muted = true;
+  v.setAttribute('playsinline', '');
+  v.setAttribute('webkit-playsinline', '');
 
-    // If the tab becomes hidden, pause
-    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+  // Reset to the start whenever we need to replay
+  v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
 
-    // Play/pause based on visibility (>= 50% visible plays)
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-          if (v.ended || v.currentTime >= (v.duration - 0.2)) {  // reset if stuck at end
-            try { v.currentTime = 0; } catch(e){}
-          }
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
-      });
-    }, { threshold: [0, 0.5, 1] });
+  // Visibility pause
+  document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
 
-    io.observe(v);
+  // Autoplay when at least 25% visible, pause otherwise (more tolerant on mobile)
+  const playWhenVisible = (entry) => {
+    if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+      if (v.ended || v.currentTime >= (v.duration - 0.2)) { try { v.currentTime = 0; } catch(e){} }
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  };
 
-    // Fallback: first click anywhere starts it if the browser blocked autoplay
-    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); };
-    window.addEventListener('click', kick, { once: true });
-  })();
+  const io = new IntersectionObserver((entries) => entries.forEach(playWhenVisible), { threshold: [0, 0.25, 1] });
+  io.observe(v);
+
+  // If it's already on screen at load, attempt to play once
+  const tryInitial = () => {
+    const rect = v.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+    if (visible / Math.max(1, rect.height) >= 0.25) v.play().catch(() => {});
+  };
+  window.addEventListener('load', tryInitial);
+
+  // Last-resort user gesture fallback (some iPhones in Low Power Mode)
+  const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('touchstart', kick); window.removeEventListener('click', kick); };
+  window.addEventListener('touchstart', kick, { once: true });
+  window.addEventListener('click', kick, { once: true });
+})();
 </script>
-
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
