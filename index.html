@@ -36,17 +36,11 @@
 
   <!-- Hero -->
   <section class="max-w-6xl mx-auto px-6 pt-6 pb-12">
-	<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2
-				text-emerald-300 text-xs sm:text-sm border border-emerald-700/40
-				rounded-xl px-3 py-2 mb-6 max-w-full whitespace-normal">
-	  <span class="leading-snug">
-		First 100 buyers get <span class="font-semibold text-emerald-200">50% OFF</span>
-	  </span>
-	  <span class="hidden sm:inline">—</span>
-	  <span class="leading-snug">
-		Regular price <span class="font-semibold text-emerald-200">US$79.99</span>
-	  </span>
-	</div>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-emerald-300 text-xs sm:text-sm border border-emerald-700/40 rounded-xl px-3 py-2 mb-6 max-w-full whitespace-normal">
+      <span class="leading-snug">First 100 buyers get <span class="font-semibold text-emerald-200">50% OFF</span></span>
+      <span class="hidden sm:inline">—</span>
+      <span class="leading-snug">Regular price <span class="font-semibold text-emerald-200">US$79.99</span></span>
+    </div>
 
     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
       Excel Data Extraction Made<br class="hidden sm:block" /> <span class="text-white">Simple</span>
@@ -66,7 +60,7 @@
         Download Free 30-Day Trial
       </a>
 
-      <!-- LIVE Buy Now with coupon on product path (opens new tab) -->
+      <!-- Buy Now -->
       <a
         href="https://dataex.onfastspring.com/dataex-excel-data-extraction?coupon=LAUNCH50"
         target="_blank" rel="noopener"
@@ -76,7 +70,7 @@
         Buy Now — 50% Launch Offer
       </a>
 
-      <!-- Coupon pill (click to copy) -->
+      <!-- Coupon pill -->
       <button id="copy-coupon"
         class="rounded-xl border border-emerald-500/60 px-3 py-2 text-sm text-emerald-300 hover:bg-emerald-500/10"
         data-code="LAUNCH50" type="button" title="Click to copy">
@@ -86,78 +80,60 @@
     <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
   </section>
 
-<!-- Intro video (autoplay when visible; mobile-safe) -->
-<section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
-  <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX — Excel Data Extraction</h2>
+  <!-- Intro video -->
+  <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
+    <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX — Excel Data Extraction</h2>
+    <div class="mx-auto max-w-3xl rounded-2xl overflow-hidden border border-slate-800 shadow">
+      <video
+        id="dataexIntro"
+        class="w-full h-auto"
+        style="aspect-ratio:16/9"
+        preload="metadata"
+        muted
+        autoplay
+        playsinline
+        webkit-playsinline
+        controls
+        poster="assets/LOGO.png"
+        controlslist="nodownload noplaybackrate"
+      >
+        <source src="assets/videos/dataex-intro.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
 
-  <div class="mx-auto max-w-3xl rounded-2xl overflow-hidden border border-slate-800 shadow">
-    <video
-      id="dataexIntro"
-      class="w-full h-auto"
-      style="aspect-ratio:16/9"
-      preload="metadata"
-      muted
-      autoplay
-      playsinline
-      webkit-playsinline
-      controls
-      poster="assets/LOGO.png"
-      controlslist="nodownload noplaybackrate"
-    >
-      <source src="assets/videos/dataex-intro.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</section>
-
-<script>
-(function () {
-  const v = document.getElementById('dataexIntro');
-  if (!v) return;
-
-  // Respect reduced motion users
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReduced.matches) { v.autoplay = false; v.controls = true; return; }
-
-  // Ensure flags for iOS
-  v.muted = true;
-  v.setAttribute('playsinline', '');
-  v.setAttribute('webkit-playsinline', '');
-
-  // Reset to the start whenever we need to replay
-  v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
-
-  // Visibility pause
-  document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
-
-  // Autoplay when at least 25% visible, pause otherwise (more tolerant on mobile)
-  const playWhenVisible = (entry) => {
-    if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-      if (v.ended || v.currentTime >= (v.duration - 0.2)) { try { v.currentTime = 0; } catch(e){} }
-      v.play().catch(() => {});
-    } else {
-      v.pause();
-    }
-  };
-
-  const io = new IntersectionObserver((entries) => entries.forEach(playWhenVisible), { threshold: [0, 0.25, 1] });
-  io.observe(v);
-
-  // If it's already on screen at load, attempt to play once
-  const tryInitial = () => {
-    const rect = v.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
-    if (visible / Math.max(1, rect.height) >= 0.25) v.play().catch(() => {});
-  };
-  window.addEventListener('load', tryInitial);
-
-  // Last-resort user gesture fallback (some iPhones in Low Power Mode)
-  const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('touchstart', kick); window.removeEventListener('click', kick); };
-  window.addEventListener('touchstart', kick, { once: true });
-  window.addEventListener('click', kick, { once: true });
-})();
-</script>
+  <script>
+  (function () {
+    const v = document.getElementById('dataexIntro');
+    if (!v) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReduced.matches) { v.autoplay = false; v.controls = true; return; }
+    v.muted = true;
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+    v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+    const playWhenVisible = (entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+        if (v.ended || v.currentTime >= (v.duration - 0.2)) { try { v.currentTime = 0; } catch(e){} }
+        v.play().catch(() => {});
+      } else { v.pause(); }
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach(playWhenVisible), { threshold: [0, 0.25, 1] });
+    io.observe(v);
+    const tryInitial = () => {
+      const rect = v.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+      if (visible / Math.max(1, rect.height) >= 0.25) v.play().catch(() => {});
+    };
+    window.addEventListener('load', tryInitial);
+    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('touchstart', kick); window.removeEventListener('click', kick); };
+    window.addEventListener('touchstart', kick, { once: true });
+    window.addEventListener('click', kick, { once: true });
+  })();
+  </script>
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -179,6 +155,15 @@
         An intuitive interface for busy professionals. No scripting or complex setup required. If you know Excel, you know DATAEX.
       </p>
     </article>
+
+    <!-- New card -->
+    <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h3 class="text-lg font-semibold">Consolidate &amp; Search — Fast Extraction</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        Do both. Consolidate data across many workbooks <em>and</em> search within rows, ranges, or fixed cells. One run produces a clean Excel file with your results — minimal effort.
+      </p>
+    </article>
+
     <article class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
       <h3 class="text-lg font-semibold">Folder Content Auditing</h3>
       <p class="mt-2 text-sm text-slate-300">
@@ -193,10 +178,89 @@
     </article>
   </section>
 
-  <!-- FAQ (collapsible) -->
+  <!-- FAQ -->
   <section id="faq" class="max-w-4xl mx-auto px-6 py-10">
     <h2 class="text-2xl font-bold mb-4">FAQ</h2>
     <div class="space-y-3 text-slate-200">
+
+      <!-- Use cases accordion with nested fields -->
+      <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+        <summary class="flex items-center justify-between">
+          <span class="font-semibold">What are some use cases for DATAEX?</span>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </summary>
+        <div class="answer text-sm text-slate-300">
+          <p class="mb-3">Click a field to see practical examples:</p>
+
+          <!-- Finance -->
+          <details class="group border border-slate-800/70 rounded-lg p-3 mb-2 bg-slate-900/30">
+            <summary class="flex items-center justify-between">
+              <span class="font-medium">Finance</span>
+              <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-300/90">
+              <li>Collect month-end numbers from daily/weekly reports into one consolidated file.</li>
+              <li>Extract actual vs forecast data from departmental files for variance analysis.</li>
+              <li>Aggregate expense reports from multiple cost centers into a single results sheet.</li>
+            </ul>
+          </details>
+
+          <!-- Sales -->
+          <details class="group border border-slate-800/70 rounded-lg p-3 mb-2 bg-slate-900/30">
+            <summary class="flex items-center justify-between">
+              <span class="font-medium">Sales</span>
+              <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-300/90">
+              <li>Pull together regional sales reports into one master tracker.</li>
+              <li>Extract customer order data from multiple rep files for a pipeline summary.</li>
+              <li>Consolidate product performance reports across stores/branches.</li>
+            </ul>
+          </details>
+
+          <!-- HR -->
+          <details class="group border border-slate-800/70 rounded-lg p-3 mb-2 bg-slate-900/30">
+            <summary class="flex items-center justify-between">
+              <span class="font-medium">HR</span>
+              <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-300/90">
+              <li>Gather training completion records from different employee logs.</li>
+              <li>Extract leave balances from departmental sheets into one summary.</li>
+              <li>Consolidate recruitment trackers (candidates, interviews, offers) into a central file.</li>
+            </ul>
+          </details>
+
+          <!-- Payroll -->
+          <details class="group border border-slate-800/70 rounded-lg p-3 mb-2 bg-slate-900/30">
+            <summary class="flex items-center justify-between">
+              <span class="font-medium">Payroll</span>
+              <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-300/90">
+              <li>Combine employee timesheets into a single payroll preparation file.</li>
+              <li>Extract overtime/bonus information from multiple source files for payment calculation.</li>
+              <li>Audit payroll uploads against employee master lists across months.</li>
+            </ul>
+          </details>
+
+          <!-- Other -->
+          <details class="group border border-slate-800/70 rounded-lg p-3 bg-slate-900/30">
+            <summary class="flex items-center justify-between">
+              <span class="font-medium">Other Examples</span>
+              <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-300/90">
+              <li>Operations: consolidate daily shift logs into a weekly summary.</li>
+              <li>Audit/Compliance: extract recurring fields for testing and documentation.</li>
+              <li>Project Management: pull cost and progress data from team-level sheets into a portfolio view.</li>
+              <li>Education: compile grades or attendance records from multiple class files.</li>
+            </ul>
+          </details>
+        </div>
+      </details>
+      <!-- /Use cases -->
+
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">Does the trial require a license?</span>
@@ -224,7 +288,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How is licensing handled? Can I move it between computers?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Each license is for one person. You can transfer the active installation by Deactivate on the old computer and Activate on the new one with your key.
@@ -234,7 +298,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How do I purchase and what about taxes?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Checkout runs through FastSpring (Merchant of Record). They calculate, collect, and remit applicable sales/VAT/GST taxes.
@@ -260,14 +324,13 @@
   </footer>
 
   <script>
-    // Copy coupon helper (fallback for users who need to paste in checkout)
+    // Copy coupon helper
     (function(){
       var btn = document.getElementById('copy-coupon');
       if(!btn) return;
       btn.addEventListener('click', function(){
         var code = btn.getAttribute('data-code');
         navigator.clipboard?.writeText(code).then(function(){
-          var old = btn.innerHTML;
           btn.innerHTML = 'Copied: <strong>' + code + '</strong>';
           setTimeout(function(){ btn.innerHTML = 'Coupon: <strong>' + code + '</strong>'; }, 1500);
         });
@@ -277,32 +340,19 @@
   </script>
 
   <script>
-    // Autoplay/pause the intro video only when visible (≥50%)
+    // Visibility-based autoplay (≥50%)
     (function () {
       const v = document.getElementById('dataexIntro');
       if (!v) return;
-
-      // Respect reduced motion preference
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (prefersReduced.matches) { v.controls = true; return; }
-
-      v.muted = true; // required for mobile autoplay
+      v.muted = true;
       const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-            v.play().catch(() => {});
-          } else {
-            v.pause();
-          }
-        });
+        entries.forEach((e) => { if (e.isIntersecting && e.intersectionRatio >= 0.5) { v.play().catch(()=>{}); } else { v.pause(); } });
       }, { threshold: [0, 0.5, 1] });
       io.observe(v);
-
-      // Pause when tab not visible
       document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
-
-      // Fallback: user click starts playback if blocked
-      const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); };
+      const kick = () => { if (v.paused) v.play().catch(()=>{}); window.removeEventListener('click', kick); };
       window.addEventListener('click', kick, { once: true });
     })();
   </script>
