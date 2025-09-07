@@ -103,37 +103,50 @@
     </div>
   </section>
 
-  <script>
-  (function () {
-    const v = document.getElementById('dataexIntro');
-    if (!v) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReduced.matches) { v.autoplay = false; v.controls = true; return; }
-    v.muted = true;
-    v.setAttribute('playsinline', '');
-    v.setAttribute('webkit-playsinline', '');
-    v.addEventListener('loadedmetadata', () => { try { v.currentTime = 0; } catch(e){} });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
-    const playWhenVisible = (entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-        if (v.ended || v.currentTime >= (v.duration - 0.2)) { try { v.currentTime = 0; } catch(e){} }
-        v.play().catch(() => {});
-      } else { v.pause(); }
-    };
-    const io = new IntersectionObserver((entries) => entries.forEach(playWhenVisible), { threshold: [0, 0.25, 1] });
-    io.observe(v);
-    const tryInitial = () => {
-      const rect = v.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
-      if (visible / Math.max(1, rect.height) >= 0.25) v.play().catch(() => {});
-    };
-    window.addEventListener('load', tryInitial);
-    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('touchstart', kick); window.removeEventListener('click', kick); };
-    window.addEventListener('touchstart', kick, { once: true });
-    window.addEventListener('click', kick, { once: true });
-  })();
-  </script>
+ <script>
+(function () {
+  const v = document.getElementById('dataexIntro');
+  if (!v) return;
+
+  // Respect users who prefer reduced motion
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReduced.matches) { v.autoplay = false; v.loop = false; v.controls = true; return; }
+
+  // Make sure required flags are set in case HTML was cached differently
+  v.muted = true;
+  v.loop = true;
+  v.setAttribute('playsinline', '');
+  v.setAttribute('webkit-playsinline', '');
+
+  // Start/pause based on visibility
+  const playOrPause = (entry) => {
+    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+      v.play().catch(() => {/* silently ignore */});
+    } else {
+      v.pause();
+    }
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach(playOrPause),
+    { threshold: [0, 0.5, 1] }
+  );
+  io.observe(v);
+
+  // If it's already on screen at load, kick it
+  window.addEventListener('load', () => {
+    const r = v.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+    if (visible / Math.max(1, r.height) >= 0.5) v.play().catch(() => {});
+  });
+
+  // Last-resort: first click/touch starts playback if a device blocks autoplay
+  const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); window.removeEventListener('touchstart', kick); };
+  window.addEventListener('click', kick, { once: true });
+  window.addEventListener('touchstart', kick, { once: true });
+})();
+</script>
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -358,3 +371,4 @@
   </script>
 </body>
 </html>
+
