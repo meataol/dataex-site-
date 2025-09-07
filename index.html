@@ -35,7 +35,50 @@
   </header>
 
   <!-- Hero -->
-  … [unchanged hero + download section] …
+  <section class="max-w-6xl mx-auto px-6 pt-6 pb-12">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-emerald-300 text-xs sm:text-sm border border-emerald-700/40 rounded-xl px-3 py-2 mb-6 max-w-full whitespace-normal">
+      <span class="leading-snug">First 100 buyers get <span class="font-semibold text-emerald-200">50% OFF</span></span>
+      <span class="hidden sm:inline">—</span>
+      <span class="leading-snug">Regular price <span class="font-semibold text-emerald-200">US$79.99</span></span>
+    </div>
+
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
+      Excel Data Extraction Made<br class="hidden sm:block" /> <span class="text-white">Simple</span>
+    </h1>
+    <p class="mt-5 text-slate-300 max-w-2xl">
+      Define exactly what you need, scan hundreds of files at once, and get your results in a ready-to-use Excel report — without scripts or complex setup.
+    </p>
+
+    <div class="mt-8 flex flex-col sm:flex-row gap-4" id="download">
+      <!-- Trial download -->
+      <a
+        href="https://github.com/meataol/dataex-downloads/releases/latest/download/DATAEX.Excel.Data.Extraction.Windows.platform.zip"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-cyan-600 hover:bg-cyan-500 font-medium text-white"
+        download
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-3-3m3 3l3-3M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Download Free 30-Day Trial
+      </a>
+
+      <!-- Buy Now -->
+      <a
+        href="https://dataex.onfastspring.com/dataex-excel-data-extraction?coupon=LAUNCH50"
+        target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-slate-800 hover:bg-slate-700 font-medium"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18m-9 5h9" /></svg>
+        Buy Now — 50% Launch Offer
+      </a>
+
+      <!-- Coupon pill -->
+      <button id="copy-coupon"
+        class="rounded-xl border border-emerald-500/60 px-3 py-2 text-sm text-emerald-300 hover:bg-emerald-500/10"
+        data-code="LAUNCH50" type="button" title="Click to copy">
+        Coupon: <strong>LAUNCH50</strong>
+      </button>
+    </div>
+    <p class="mt-2 text-xs text-slate-400">Regular price US$79.99. 50% launch offer for the first 100 purchases (auto-applied at checkout). If not visible, click <em>Add</em> then paste the code (already copied).</p>
+  </section>
 
   <!-- Intro video -->
   <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
@@ -108,7 +151,7 @@
   </script>
 
   <!-- Features -->
-  … [features + FAQ + footer, unchanged] …
+  … [keep all your features, FAQ, footer as before] …
 
   <script>
     // Copy coupon helper
