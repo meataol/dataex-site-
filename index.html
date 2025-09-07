@@ -117,7 +117,7 @@
   </section>
 
   <!-- =========================
-       INTRO VIDEO (autoplay + loop)
+       INTRO VIDEO (autoplay + loop + controls)
        ========================= -->
   <section id="intro-video" class="mx-auto max-w-6xl px-6 pb-10">
     <h2 class="text-2xl font-semibold text-slate-100 mb-4">Introducing DATAEX — Excel Data Extraction</h2>
@@ -133,6 +133,7 @@
         loop
         playsinline
         webkit-playsinline
+        controls
         poster="assets/LOGO.png"
         controlslist="nodownload noplaybackrate"
       >
@@ -143,23 +144,21 @@
     </div>
   </section>
 
-  <!-- Video behavior (single script) -->
+  <!-- Video behavior (autoplay, loop, unmute on first click) -->
   <script>
   (function () {
     const v = document.getElementById('dataexIntro');
     if (!v) return;
 
-    // Respect reduced motion users
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const canAutoplay = !prefersReduced.matches;
 
-    // Ensure flags for mobile autoplay + loop
+    // Ensure flags for autoplay/loop
     v.muted = true;
     v.loop = true;
     v.setAttribute('playsinline', '');
     v.setAttribute('webkit-playsinline', '');
 
-    // Always start from 0 and try to play
     function startFresh() {
       try {
         v.pause();
@@ -168,11 +167,9 @@
       } catch (e) {}
     }
 
-    // Start at 0 after metadata loads; reset on back/forward cache
     v.addEventListener('loadedmetadata', startFresh, { once: true });
     window.addEventListener('pageshow', (e) => { if (e.persisted) startFresh(); });
 
-    // Visibility-based play/pause (≥10% visible)
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
@@ -184,7 +181,6 @@
     }, { threshold: [0, 0.1, 1] });
     io.observe(v);
 
-    // If already partly visible at load, try to play once
     window.addEventListener('load', () => {
       const r = v.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -192,8 +188,13 @@
       if (visible / Math.max(1, r.height) >= 0.1 && canAutoplay) v.play().catch(() => {});
     });
 
-    // Last-resort: first click/touch starts playback if blocked
-    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); window.removeEventListener('touchstart', kick); };
+    // First click/tap unmutes + plays
+    const kick = () => {
+      if (v.muted) v.muted = false;
+      if (v.paused) v.play().catch(() => {});
+      window.removeEventListener('click', kick);
+      window.removeEventListener('touchstart', kick);
+    };
     window.addEventListener('click', kick, { once: true });
     window.addEventListener('touchstart', kick, { once: true });
   })();
