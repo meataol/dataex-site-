@@ -97,56 +97,71 @@
         poster="assets/LOGO.png"
         controlslist="nodownload noplaybackrate"
       >
-        <source src="assets/videos/dataex-intro.mp4" type="video/mp4" />
+        <!-- cache-buster v=1 -->
+        <source src="assets/videos/dataex-intro.mp4?v=1" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
   </section>
 
- <script>
-(function () {
-  const v = document.getElementById('dataexIntro');
-  if (!v) return;
+  <!-- Autoplay + always start from 0 + visibility-aware -->
+  <script>
+  (function () {
+    const v = document.getElementById('dataexIntro');
+    if (!v) return;
 
-  // Respect users who prefer reduced motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReduced.matches) { v.autoplay = false; v.loop = false; v.controls = true; return; }
+    // Respect users who prefer reduced motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const canAutoplay = !prefersReduced.matches;
 
-  // Make sure required flags are set in case HTML was cached differently
-  v.muted = true;
-  v.loop = true;
-  v.setAttribute('playsinline', '');
-  v.setAttribute('webkit-playsinline', '');
+    // Make sure required flags are set
+    v.muted = true;
+    v.loop = true;
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
 
-  // Start/pause based on visibility
-  const playOrPause = (entry) => {
-    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-      v.play().catch(() => {/* silently ignore */});
-    } else {
-      v.pause();
+    function startFresh() {
+      try {
+        v.pause();
+        v.currentTime = 0;                // always begin at 0
+        if (canAutoplay) v.play().catch(() => {});
+      } catch (e) {}
     }
-  };
 
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach(playOrPause),
-    { threshold: [0, 0.5, 1] }
-  );
-  io.observe(v);
+    // Start from 0 on first load (after metadata is ready)
+    v.addEventListener('loadedmetadata', startFresh, { once: true });
 
-  // If it's already on screen at load, kick it
-  window.addEventListener('load', () => {
-    const r = v.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-    if (visible / Math.max(1, r.height) >= 0.5) v.play().catch(() => {});
-  });
+    // Handle back/forward cache restores so it won't resume mid-frame
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) startFresh();
+    });
 
-  // Last-resort: first click/touch starts playback if a device blocks autoplay
-  const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); window.removeEventListener('touchstart', kick); };
-  window.addEventListener('click', kick, { once: true });
-  window.addEventListener('touchstart', kick, { once: true });
-})();
-</script>
+    // Visibility-based play/pause to save resources
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          if (canAutoplay) v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: [0, 0.5, 1] });
+    io.observe(v);
+
+    // If it's already on screen at load, kick it
+    window.addEventListener('load', () => {
+      const r = v.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      if (visible / Math.max(1, r.height) >= 0.5 && canAutoplay) v.play().catch(() => {});
+    });
+
+    // Last-resort: first click/touch starts playback if a device blocks autoplay
+    const kick = () => { if (v.paused) v.play().catch(() => {}); window.removeEventListener('click', kick); window.removeEventListener('touchstart', kick); };
+    window.addEventListener('click', kick, { once: true });
+    window.addEventListener('touchstart', kick, { once: true });
+  })();
+  </script>
 
   <!-- Features -->
   <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -301,7 +316,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How is licensing handled? Can I move it between computers?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Each license is for one person. You can transfer the active installation by Deactivate on the old computer and Activate on the new one with your key.
@@ -311,7 +326,7 @@
       <details class="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
         <summary class="flex items-center justify-between">
           <span class="font-semibold">How do I purchase and what about taxes?</span>
-          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          <svg class="chev h-5 w-5 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.119l3.71-3.89a.75.75 0 111.08 1.04l-4.24 4.45a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01-1.06z" clip-rule="evenodd"/></svg>
         </summary>
         <div class="answer text-sm text-slate-300">
           Checkout runs through FastSpring (Merchant of Record). They calculate, collect, and remit applicable sales/VAT/GST taxes.
@@ -351,25 +366,5 @@
     })();
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-
-  <script>
-    // Visibility-based autoplay (≥50%)
-    (function () {
-      const v = document.getElementById('dataexIntro');
-      if (!v) return;
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (prefersReduced.matches) { v.controls = true; return; }
-      v.muted = true;
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting && e.intersectionRatio >= 0.5) { v.play().catch(()=>{}); } else { v.pause(); } });
-      }, { threshold: [0, 0.5, 1] });
-      io.observe(v);
-      document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
-      const kick = () => { if (v.paused) v.play().catch(()=>{}); window.removeEventListener('click', kick); };
-      window.addEventListener('click', kick, { once: true });
-    })();
-  </script>
 </body>
 </html>
-
-
